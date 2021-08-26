@@ -247,7 +247,7 @@ print(as_jsonable(sample_input))
 ## Contributing
 
 To work on the cerealbox codebase, you'll want to clone the project locally and install the required dependencies
-via `poetry <https://poetry.eustace.io>`_.
+via [poetry](https://poetry.eustace.io).
 
 ```bash
 git clone git@github.com:a2d24/cerealbox.git
