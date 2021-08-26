@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cerealbox"
+version = "0.1.0"
+description = "Zero dependency generic serializer and deserializer with DynamoDB JSON support"
+authors = ["Imtiaz Mangerah <Imtiaz_Mangerah@a2d24.com>"]
+license = "MIT"
+homepage = "https://github.com/a2d24/cerealbox"
+documentation = "https://github.com/a2d24/cerealbox"
+readme = "README.md"
+keywords = ["Serializer", "Deserializer", "DynamoDB", "JSON"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+pytest-cov = "^2.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
