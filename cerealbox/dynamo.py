@@ -114,8 +114,11 @@ def decode_dynamodb_primative(value):
 
 
 def decode_dynamodb_json(v):
+    try:
+        key = next(iter(v))
+    except StopIteration: # Empty dict
+        return {}
 
-    key = next(iter(v))
     # Convert root level attribute map into {"M": ...}
     if len(v) > 1 or (len(v) == 1 and key not in DYNAMODB_TYPES):
         v = {'M': v}

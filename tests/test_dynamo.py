@@ -80,3 +80,9 @@ def test_invalid_dynamodb_json():
 
 def test_with_and_without_map_type():
     assert from_dynamodb_json({"a": {"N": "1"}}) == from_dynamodb_json({"M": {"a": {"N": "1"}}})
+
+def test_from_empty_input():
+    assert from_dynamodb_json({}) == {}
+
+def test_to_empty_input():
+    assert as_dynamodb_json({}) == {'M': {}}

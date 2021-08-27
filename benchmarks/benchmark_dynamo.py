@@ -1,11 +1,11 @@
-import json
 import timeit
 from decimal import Decimal
+from pprint import pprint
 
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
-from cerealbox.dynamo import as_dynamodb_json, from_dynamodb_json
 from dynamodb_json import json_util
-from pprint import pprint
+
+from cerealbox.dynamo import as_dynamodb_json, from_dynamodb_json
 
 sample_object = {
     "name": "Jane",
@@ -75,7 +75,6 @@ def benchmark_boto():
     return backwards
 
 
-
 ITERATIONS = 10000
 
 dynamodb_json_result = timeit.timeit(
@@ -112,7 +111,6 @@ print(f"Time for roundtrip conversion of serialize / deserialize ({ITERATIONS} i
 print(f"  dynamodb-json:    {dynamodb_json_result * factor_for_microseconds} uS")
 print(f"  boto3:            {boto_result * factor_for_microseconds} uS")
 print(f"  cerealbox:        {cerealbox_result * factor_for_microseconds} uS")
-
 
 # Time for roundtrip conversion of serialize / deserialize (10000 iteration average):
 #   dynamodb-json:    754.0279692970216 uS

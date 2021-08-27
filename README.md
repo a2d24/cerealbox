@@ -257,7 +257,7 @@ benchmark calculates the roundtrip conversion from a python dict to DynamoDB JSO
 
 | package | version | relative performance | mean time |
 | :---: | :---: | :---: | :---: |
-| `cerealbox` | 0.1.1 | - | 102.4 uS |
+| `cerealbox` | 0.1.2 | - | 102.4 uS |
 | `boto3` | 1.18.30 | 2.69x slower | 275.2 uS |
 | `dynamodb-json` | 1.3 | 7.36x slower | 754.0 uS |
 

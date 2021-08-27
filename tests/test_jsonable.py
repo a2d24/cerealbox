@@ -60,3 +60,6 @@ def test_enum():
 
 def test_tuple():
     assert as_jsonable((1,2)) == [1,2]
+
+def test_empty_input():
+    assert as_jsonable({}) == {}

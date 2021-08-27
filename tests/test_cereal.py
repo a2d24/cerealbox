@@ -42,3 +42,5 @@ def test_unable_to_serialize():
         serialize(1)
 
     assert ex_info.value.args[0] == 'Unable to serialize value 1 of type int'
+
+

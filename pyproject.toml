@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cerealbox"
-version = "0.1.1"
+version = "0.1.2"
 description = "Zero dependency generic serializer and deserializer with DynamoDB JSON support"
 authors = ["Imtiaz Mangerah <Imtiaz_Mangerah@a2d24.com>"]
 license = "MIT"
