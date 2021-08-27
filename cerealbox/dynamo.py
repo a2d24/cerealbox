@@ -45,7 +45,7 @@ serialize_as_number = lambda v: {'N': str(v)}
 #   set([int/Decimal])                      {'NS': [str(value)]}
 #   set([string])                           {'SS': [string])
 #   set([Binary/bytearray/bytes])           {'BS': [bytes]}
-#   list                                    {'L': list}
+#   list/tuple                              {'L': list}
 #   dict                                    {'M': dict}
 #   float                                   {'S': str(value)}
 #   datetime/date/time                      {'S': str(value.isoformat())}
@@ -61,6 +61,7 @@ DYNAMODB_ENCODERS: Dict[Type[Any], Callable[[Any], Any]] = {
     NoneType: lambda v: {'NULL': True},
 
     list: serialize_list,
+    tuple: serialize_list,
     dict: serialize_dict,
     set: serialize_set,
     Set: serialize_set,

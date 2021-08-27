@@ -34,6 +34,8 @@ def test_set_conversions(value, result):
     assert set(from_dynamodb_json(result)) == set(value)
     assert set(from_dynamodb_json(as_dynamodb_json(value))) == set(value)
 
+def test_tuple_conversion():
+    assert as_dynamodb_json((1,2)) == {'L': [{'N': '1'}, {'N': '2'}]}
 
 def test_bytearray_type():
     assert type(as_dynamodb_json(bytearray([2, 3, 5, 7]))['B']) == bytes

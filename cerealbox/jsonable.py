@@ -41,6 +41,7 @@ JSONABLE_ENCODERS: Dict[Type[Any], Callable[[Any], Any]] = {
     list: serialize_list,
     set: serialize_list,
     dict: serialize_dict,
+    tuple: serialize_list,
 
     Decimal: str,
     datetime.date: lambda d: d.isoformat(),

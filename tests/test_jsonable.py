@@ -57,3 +57,6 @@ def test_uuid():
 
 def test_enum():
     assert as_jsonable(Gender.MALE) == "Male"
+
+def test_tuple():
+    assert as_jsonable((1,2)) == [1,2]
