@@ -1,7 +1,7 @@
 # CerealBox for Python
 
-CerealBox is a Zero Dependency generic Serializer / Deserializer for python dictionaries. It has an extendable
-architecture that allows custom serializers to be built through config. The module also includes built in
+CerealBox is a blazingly fast Zero Dependency generic Serializer / Deserializer for python dictionaries. It has an
+extendable architecture that allows custom serializers to be built through config. The module also includes built in
 implementations of serializing common data types to a JSON compatible dictionary or DynamoDB JSON.
 
 ## Getting started
@@ -22,7 +22,7 @@ pip install cerealbox
 
 ### Using the built-in serializers
 
-* jsonable
+#### jsonable
 
 The jsonable serializer converts any input dict or value into JSON serializable output value.
 
@@ -81,7 +81,7 @@ The default encoders for `as_jsonable` are as follows:
      | uuid              | string          |
 ```
 
-* DynamoDB
+#### DynamoDB
 
 The DynamoDB Serializer/Deserializer is capable of transforming python values into DynamoDB JSON and back. It supports
 most common data types. Some transformations are not reversible (eg converting a datetime to a string). This limitation
@@ -187,29 +187,32 @@ from cerealbox import Cereal
 from decimal import Decimal
 from pprint import pprint
 
+
 def redact_strings(value):
-   if 'classified' in value.lower():
-      return "***classified***"
-   
-   return value
+    if 'classified' in value.lower():
+        return "***classified***"
+
+    return value
+
 
 def serialize_list(value, serialize):
-   return [serialize(item) for item in value]
+    return [serialize(item) for item in value]
+
 
 ENCODERS = {
-   str: redact_strings,
-   Decimal: lambda num: f"$ {num}",
-   list: serialize_list,
-   dict: lambda v, serialize: {k_: serialize(v_) for k_, v_ in v.items()}
+    str: redact_strings,
+    Decimal: lambda num: f"$ {num}",
+    list: serialize_list,
+    dict: lambda v, serialize: {k_: serialize(v_) for k_, v_ in v.items()}
 }
 
 custom_serializer = Cereal(encoders=ENCODERS)
 
 sample_input = {
-   "name": "Jane",
-   "assignment": "Eat Cereal. Mission is Classified",
-   "funds": Decimal('1024.50'),
-   "keywords": [Decimal('1.5'), "Hello, World", "I am classified."]
+    "name": "Jane",
+    "assignment": "Eat Cereal. Mission is Classified",
+    "funds": Decimal('1024.50'),
+    "keywords": [Decimal('1.5'), "Hello, World", "I am classified."]
 }
 
 pprint(custom_serializer(sample_input))
@@ -226,11 +229,13 @@ pprint(custom_serializer(sample_input))
 ```python
 from cerealbox.jsonable import as_jsonable
 
+
 def redact_strings(value):
-   if 'classified' in value.lower():
-      return "***classified***"
-   
-   return value
+    if 'classified' in value.lower():
+        return "***classified***"
+
+    return value
+
 
 as_jsonable.extend_encoders({str: redact_strings})
 
@@ -243,6 +248,18 @@ sample_input = {
 print(as_jsonable(sample_input))
 # {'name': 'Jane', 'age': 23, 'mission': '***classified***'}
 ```
+
+## DynamoDB JSON Serializer/Deserializer Benchmarks
+
+**cerealbox** has crude benchmarks against [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) 
+(using TypeSerializer and TypeDeserializer) and [dynamodb-json](https://github.com/Alonreznik/dynamodb-json). The
+benchmark calculates the roundtrip conversion from a python dict to DynamoDB JSON and back to a python dict. See `./benchmarks`
+
+| package | version | relative performance | mean time |
+| :---: | :---: | :---: | :---: |
+| `cerealbox` | 0.1.1 | - | 102.4 uS |
+| `boto3` | 1.18.30 | 2.69x slower | 275.2 uS |
+| `dynamodb-json` | 1.3 | 7.36x slower | 754.0 uS |
 
 ## Contributing
 
